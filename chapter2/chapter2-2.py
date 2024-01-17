@@ -2,14 +2,22 @@ import os
 import pandas as pd
 import torch
 
+"""
+chapter 2.2 数据预处理
+pandas 库的使用
+"""
+
 
 def prepare_dataset_file():
     os.makedirs(os.path.join('..', 'data'), exist_ok=True)
     return os.path.join('..', 'data', 'house_tiny.csv')
 
 
-def read_write_dataset():
-    # 写数据
+def two_two_one():
+    """
+    准备数据集
+    """
+    print("\n======== 2.2.1 ==========")
     data_file = prepare_dataset_file()
     with open(data_file, 'w') as f:
         f.write('NumRooms,Alley,Price\n')
@@ -23,7 +31,11 @@ def read_write_dataset():
     print(data)
 
 
-def deal_dataset():
+def two_two_two():
+    """
+    处理缺失值
+    """
+    print("\n======== 2.2.2 ==========")
     data_file = prepare_dataset_file()
     data = pd.read_csv(data_file)
     # 通过位置索引 iloc 将 data 分成 inputs 和 outputs 两部分
@@ -44,12 +56,16 @@ def deal_dataset():
     inputs = pd.get_dummies(inputs, dummy_na=True)
     print(inputs)
 
-    # 转换为张量
-    x = torch.tensor(inputs.to_numpy(dtype=float))
-    y = torch.tensor(outputs.to_numpy(dtype=float))  # outputs 不需要处理
-    print(x)
-    print(y)
+
+def two_two_three():
+    """
+    转换成张量
+    相关内容再 2-1 章节有涉及
+    """
+    print("\n======== 2.2.3 ==========")
+    pass
 
 
 if __name__ == '__main__':
-    deal_dataset()
+    # two_two_one()
+    two_two_two()
