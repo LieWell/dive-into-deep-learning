@@ -98,6 +98,7 @@ def two_three_six():
     降维
     """
     print("\n======== 2.3.6 ==========")
+    print("======== 向量运算 ==========")
     x = torch.arange(6, dtype=torch.float).reshape(3, 2)  # 定义一个 3x2 的矩阵
     print("x=", x)
     print("x.sum=", x.sum())
@@ -125,6 +126,22 @@ def two_three_six():
     # 由于保持了轴维度，因此支持通过广播方法继续计算
     print("x + x_sum_dim_0=", x + x_sum_dim_0)
     print("x * x_sum_dim_1=", x * x_sum_dim_1)
+    print("======== 矩阵运算 ==========")
+    # 矩阵的降维运算
+    y = torch.arange(18, dtype=torch.float).reshape(2, 3, 3)
+    print("y=", y)
+    print("y.shape=", y.shape)
+    print("y.length=", len(y))
+    y_sum = y.sum()
+    print('y_sum={},shape={}'.format(y_sum, y_sum.shape))
+    y_sum_0 = y.sum(axis=0)
+    print('y_sum_0={},shape={}'.format(y_sum_0, y_sum_0.shape))
+    # 不保持1轴的维度,那么 shape 是 (2,3)
+    y_sum_1 = y.sum(axis=1)
+    print('y_sum_1={},shape={}'.format(y_sum_1, y_sum_1.shape))
+    # 保持1轴的维度,那么 shape 是 (2,1,3)
+    y_sum_dim_1 = y.sum(axis=1, keepdims=True)
+    print('y_sum_dim_1={},shape={}'.format(y_sum_dim_1, y_sum_dim_1.shape))
 
 
 def two_three_seven():
@@ -208,7 +225,7 @@ def two_three_ten():
     范数(norm)
     向量的 Lp 范数: 向量每个元素绝对值的 x 次方和 的 x 次方根,常用的有 L1、L2 范数
     即: ||x||p = (sum(xi)ᵖ)¹/ₚ
-    TODO 本节不大理解,暂时跳过
+    TODO 暂时不理解范数的作用
     """
     print("\n======== 2.3.10 ==========")
     x = torch.tensor([3.0, -4.0])
@@ -223,6 +240,9 @@ def two_three_ten():
     y = torch.ones(2, 2)
     print("y=", y)
     print("y.norm=", torch.norm(y))
+    z = torch.arange(6, dtype=torch.float).reshape(3, 2, 1)
+    print("z=", z)
+    print("z.norm=", torch.norm(z))
 
 
 if __name__ == '__main__':
