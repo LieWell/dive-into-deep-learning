@@ -10,14 +10,21 @@ chapter 3-1 线性回归
 
 def normal(x, mu, sigma):
     """
-    正太分布函数
-    :param x:
-    :param mu:
-    :param sigma:
+    正态分布概率密度函数
+    :param x: 数据
+    :param mu: 均值
+    :param sigma: 方差
     :return:
     """
     p = 1 / math.sqrt(2 * math.pi * sigma ** 2)
     return p * np.exp(-0.5 / sigma ** 2 * (x - mu) ** 2)
+
+
+def three_one_one():
+    """
+    chapter 3.1.1 线性回归的基本元素
+    """
+    pass
 
 
 def three_one_two():
@@ -25,6 +32,7 @@ def three_one_two():
     chapter 3.1.2 矢量化加速
     对计算进行矢量化,从而利用线性代数库,而不是在Python中编写开销高昂的 for 循环
     """
+    print("\n======== 3.1.2 ==========")
     n = 10000
     a = torch.ones([n])
     b = torch.ones([n])
@@ -49,11 +57,20 @@ def three_one_three():
     """
     chapter 3.1.3 正态分布与平方损失
     """
+    print("\n======== 3.1.3 ==========")
     x = np.arange(-7, 7, 0.01)  # x 轴范围 [-7,7],步长0.01
     params = [(0, 1), (0, 2), (3, 1)]
     d2l.plot(x, [normal(x, mu, sigma) for mu, sigma in params], xlabel='x',
              ylabel='p(x)', figsize=(4.5, 2.5),
              legend=[f'mean {mu}, std {sigma}' for mu, sigma in params])
+
+
+def three_one_four():
+    """
+    chapter 3.1.4 从线性回归到深度网络
+    介绍生物学上神经网络的相关内容
+    """
+    pass
 
 
 if __name__ == '__main__':
