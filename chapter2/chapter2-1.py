@@ -37,7 +37,7 @@ def two_one_two():
 def two_one_three():
     """
     广播机制(broadcasting mechanism)
-    1.通过复制适当的元素扩展两个数组,市值具有相同的形状
+    1.通过复制适当的元素扩展两个数组,使之具有相同的形状
     2.按元素操作
     """
     print("\n======== 2.1.3 ==========")
@@ -46,6 +46,8 @@ def two_one_three():
     print("x=", x)
     print("y=", y)
     print("x+y=", x + y)
+    print("x*y=", x * y)
+    print(f"x/y={x / y}")
 
 
 def two_one_four():
@@ -121,7 +123,7 @@ def two_one_six():
 if __name__ == '__main__':
     # two_one_one()
     # two_one_two()
-    # two_one_three()
+    two_one_three()
     # two_one_four()
     # two_one_five()
-    two_one_six()
+    # two_one_six()

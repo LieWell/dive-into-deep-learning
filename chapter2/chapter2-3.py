@@ -80,7 +80,7 @@ def random_pic():
 
 def two_three_five():
     """
-    张量算法的基本性质
+    chapter 2.3.5 张量算法的基本性质
     """
     print("\n======== 2.3.5 ==========")
     a = 2
@@ -95,14 +95,14 @@ def two_three_five():
 
 def two_three_six():
     """
-    降维
+    chapter 2.3.6 降维
     """
     print("\n======== 2.3.6 ==========")
     print("======== 向量运算 ==========")
     x = torch.arange(6, dtype=torch.float).reshape(3, 2)  # 定义一个 3x2 的矩阵
     print("x=", x)
     print("x.sum=", x.sum())
-    print("x.cumsum=", x.cumsum(axis=0))  # 按维度累和
+    print("x.cumsum=", x.cumsum(axis=0))  # 保持维度并求累计和
     # 沿轴 0 求和(将矩阵从下到上堆叠,列维度会消失,变成一个轴)
     x_sum_0 = x.sum(axis=0)
     print('x_sum_0={}, shape={}'.format(x_sum_0, x_sum_0.shape))
@@ -128,18 +128,22 @@ def two_three_six():
     print("x * x_sum_dim_1=", x * x_sum_dim_1)
     print("======== 矩阵运算 ==========")
     # 矩阵的降维运算
+    # size=(2,3,3) 可以看做 2 层,每层是 (3,3)矩阵
     y = torch.arange(18, dtype=torch.float).reshape(2, 3, 3)
     print("y=", y)
     print("y.shape=", y.shape)
     print("y.length=", len(y))
     y_sum = y.sum()
     print('y_sum={},shape={}'.format(y_sum, y_sum.shape))
+    # 沿 0 轴求和
+    # 0轴代表是层,求和就是上下 2 层叠加,不保持维度的话 size=(3,3)
     y_sum_0 = y.sum(axis=0)
     print('y_sum_0={},shape={}'.format(y_sum_0, y_sum_0.shape))
-    # 不保持1轴的维度,那么 shape 是 (2,3)
+    # 沿 1 轴求和
+    # 1 轴代表行, 层不变, (3,3)矩阵求和后变为(,3)的向量, 不保持维度的话, 最终shape=(2,3)
     y_sum_1 = y.sum(axis=1)
     print('y_sum_1={},shape={}'.format(y_sum_1, y_sum_1.shape))
-    # 保持1轴的维度,那么 shape 是 (2,1,3)
+    # 保持1轴的维度,那么 shape 将是 (2,1,3)
     y_sum_dim_1 = y.sum(axis=1, keepdims=True)
     print('y_sum_dim_1={},shape={}'.format(y_sum_dim_1, y_sum_dim_1.shape))
 
@@ -160,8 +164,7 @@ def two_three_seven():
 def two_three_eight():
     """
     矩阵-向量积(matrix‐vector product)
-    矩阵和向量做乘积时,矩阵的列维度必须等于向量的维度
-    这样矩阵的每一行(向量)才可以与向量做点积运算
+    矩阵和向量做乘积时,矩阵的列维度(沿轴1的长度)必须等于向量的维度,这样矩阵的每一行(向量)才可以与向量做点积运算
     举例如下计算过程,原始对象:
     A =[[ 0,  1,  2,  3],
         [ 4,  5,  6,  7],
@@ -175,7 +178,7 @@ def two_three_eight():
     C3 = 0*8 + 1*9 + 2*10 + 3*11 = 62    // 第3行计算点积
     C4 = 0*12 + 1*13 + 2*14 + 3*15 = 86  // 第4行计算点积
     C5 = 0*16 + 1*17 + 2*18 + 3*19 = 110 // 第5行计算点积
-    结果是一个 5x1 的列向量
+    结果是一个长度为 5 的向量
     """
     print("\n======== 2.3.8 ==========")
     # 定义矩阵
@@ -185,14 +188,17 @@ def two_three_eight():
     x = torch.arange(4)
     print('x={},shape={}'.format(x, x.shape))
     # 计算矩阵-向量积
-    print("A.mv.x=", torch.mv(A, x))
+    # mv 表示 matrix 与 vector 相乘
+    r = torch.mv(A, x)
+    print("A.mv.x=", r)
+    print("(A.mv.x).size=", r.shape)
 
 
 def two_three_nine():
     """
     矩阵‐矩阵乘法(matrix‐matrix multiplication)
     A是一个 m*n 的矩阵, B是一个 x*y 的矩阵,则 AB 是 m*y 的矩阵
-    可以简单的理解为 A 与 B 的每个列向量做乘积,然后简单的拼在一起
+    可以简单的理解为矩阵 A 与 (B 的每个列向量)做乘积,然后简单的拼在一起
     举例计算:
     A=[[1, 2, 3],
        [4, 5, 6]]
@@ -217,7 +223,11 @@ def two_three_nine():
     y = torch.tensor([[7, 8], [9, 10], [11, 12]])
     print("x=", x)
     print("y=", y)
-    print("xy=", torch.mm(x, y))
+    # 计算 矩阵 与 矩阵 乘积
+    # mm 表示 matrix 与 matrix 相乘
+    r = torch.mm(x, y)
+    print("xy=", r)
+    print("xy.size=", r.shape)
 
 
 def two_three_ten():
@@ -251,8 +261,8 @@ if __name__ == '__main__':
     # two_three_three()
     # two_three_four()
     # two_three_five()
-    # two_three_six()
-    # two_three_seven()
-    # two_three_eight()
-    # two_three_nine()
-    two_three_ten()
+    two_three_six()
+# two_three_seven()
+# two_three_eight()
+# two_three_nine()
+# two_three_ten()
