@@ -100,9 +100,12 @@ def two_three_six():
     print("\n======== 2.3.6 ==========")
     print("======== 向量运算 ==========")
     x = torch.arange(6, dtype=torch.float).reshape(3, 2)  # 定义一个 3x2 的矩阵
-    print("x=", x)
-    print("x.sum=", x.sum())
-    print("x.cumsum=", x.cumsum(axis=0))  # 保持维度并求累计和
+    print(f"x={x};x.shape={x.shape}")
+    x_sum = x.sum()
+    print(f"x_sum={x_sum};x_sum.shape={x_sum.shape}")
+    # 保持维度并求累计和
+    x_cumsum_0 = x.cumsum(axis=0)
+    print(f"x_cumsum_0={x_cumsum_0};x_cumsum_0.shape={x_cumsum_0.shape}")
     # 沿轴 0 求和(将矩阵从下到上堆叠,列维度会消失,变成一个轴)
     x_sum_0 = x.sum(axis=0)
     print('x_sum_0={}, shape={}'.format(x_sum_0, x_sum_0.shape))

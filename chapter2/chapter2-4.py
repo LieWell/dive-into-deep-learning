@@ -2,7 +2,8 @@ import numpy as np
 from d2l import torch as d2l  # 引入 沐神 封装好的一些工具
 
 """
-2-4 微积分 此节内容重在理解
+2-4 微积分
+此节内容重在理解
 """
 
 
@@ -46,3 +47,6 @@ def two_four_four():
 
 if __name__ == '__main__':
     two_four_one()
+    two_four_two()
+    two_four_three()
+    two_four_four()
