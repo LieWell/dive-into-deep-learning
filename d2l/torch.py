@@ -213,6 +213,9 @@ def get_fashion_mnist_labels(labels):
     text_labels = [
         't-shirt', 'trouser', 'pullover', 'dress', 'coat', 'sandal', 'shirt',
         'sneaker', 'bag', 'ankle boot']
+    # X for Y in Z 结构
+    # 对于 labels 中的每个值执行 text_labels(i) 操作
+    # 也就是数组映射为数组
     return [text_labels[int(i)] for i in labels]
 
 

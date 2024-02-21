@@ -154,7 +154,7 @@ def three_two_seven():
 
 
 if __name__ == '__main__':
-    # three_two_one()
+    three_two_one()
     # three_two_two()
     # three_two_three()
-    three_two_seven()
+    # three_two_seven()

@@ -3,7 +3,7 @@ import torch
 
 
 def d2l_test_synthetic_data():
-    print('\n========d2l_synthetic_data_test======')
+    print('\n======== d2l_test_synthetic_data ======')
     w = torch.tensor([1.0, 2.0])
     print('w.shape=', w.shape)
     b = 3.0

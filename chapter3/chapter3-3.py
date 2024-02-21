@@ -31,12 +31,13 @@ def three_three():
     for epoch in range(num_epochs):
         for X, y in data_iter:
             l = loss(net(X), y)
+            # 每次重置梯度
             trainer.zero_grad()
             l.backward()
             trainer.step()
         l = loss(net(features), labels)
         print(f'epoch {epoch + 1}, loss {l:f}')
-    # 观察训练参数与真实值之间的误差
+    # 观察训练参数与预先设置的真实参数之间的误差
     w = net[0].weight.data
     print('w的估计误差:', true_w - w.reshape(true_w.shape))
     b = net[0].bias.data
