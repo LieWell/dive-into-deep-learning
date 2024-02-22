@@ -75,8 +75,7 @@ def loss_func():
 
 def sgd():
     """
-    随机梯度下降
-    http://sofasofa.io/tutorials/python_gradient_descent/
+    随机梯度下降 --- 参考文件 functions/stochastic_gradient_descent.py
     """
     pass
 
