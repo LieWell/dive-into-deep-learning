@@ -103,9 +103,6 @@ def updater(batch_size):
 
 
 def three_six():
-    """
-    chapter 3.6 softmax 回归从零开始实现
-    """
     print("\n======== 3.6 softmax 回归从零开始实现 ==========")
     # 读取数据集
     batch_size = 256

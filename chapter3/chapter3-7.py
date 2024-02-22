@@ -1,6 +1,5 @@
 """
 chapter 3-6 softmax 回归简洁实现
-此节代码有问题
 """
 
 import torch
@@ -14,10 +13,17 @@ def init_weights(m):
 
 
 def three_seven():
+    """
+    TODO 此部分代码并不总是成功,原因待排查
+    :return:
+    """
+    print("\n======== 3.7 softmax 回归简洁实现 ==========")
     # 加载数据集
     batch_size = 256
     train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
     # 3.7.1 初始化模型参数
+    # PyTorch不会隐式地调整输入的形状。因此，
+    # 我们在线性层前定义了展平层(flatten)，来调整网络输入的形状
     net = nn.Sequential(nn.Flatten(), nn.Linear(784, 10))
     net.apply(init_weights)
     # 3.7.2 重新审视 Softmax 实现
@@ -26,7 +32,6 @@ def three_seven():
     trainer = torch.optim.SGD(net.parameters(), lr=0.1)
     # 3.7.4 训练
     num_epochs = 10
-    # 直接运行会报错,修改了 d2l.train_epoch_ch3 函数
     d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)
     d2l.plt.show()
 
