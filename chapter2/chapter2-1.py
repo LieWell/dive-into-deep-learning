@@ -52,24 +52,21 @@ def two_one_three():
 
 def two_one_four():
     """
-    索引与切片
+    chapter 2.1.4 索引与切片
     """
     print("\n======== 2.1.4 ==========")
-    # 创建一个2行,3列,深度4的张量
-    # 在 0 轴上有两个元素,其坐标范围为 [0,1]
-    # 在 1 轴上有两个元素,其坐标范围为 [0,2]
-    # 在 2 轴上有两个元素,其坐标范围为 [0,3]
-    x = torch.tensor([
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]],
-        [[13, 14, 15, 16], [17, 18, 19, 20], [21, 22, 23, 24]],
-    ])
-    print(x[1])
-    print(x[1][1])
-    print(x[1][1][1])
-    print(x[1][1][1].item())  # 转换成标量
-    # 遍历打印
-    y = x.numpy()
-    loop_print(y)
+    x = torch.tensor([[1, 2, 3], [4, 5, 6]])
+    print(f"x={x}")
+    print(f"x[1]={x[1]}")  # 第 1 行 => tensor([4, 5, 6])
+    print(f"x[1][1]={x[1][1]}")  # 第 1 行的索引 1 => 5
+    # 高级索引
+    # t[[a, b], [c, d]]} 相当于取的是 [a,c] 和 [b,d] 元素
+    print(f"x[[0, 1], [0, 2]]={x[[0, 1], [0, 2]]}")  # tensor([1, 6])
+    print(f"x[[1, 1], [1, 0]]={x[[1, 1], [1, 0]]}")  # tensor([5, 4])
+    # t[[a,b,c],[d]] 相当于取 [a,d],[b,d],[c,d]
+    print(f"x[[0,1,1],[2]]={x[[0, 1, 1], [2]]}")  # tensor([3, 6, 6])
+    # 使用 range 函数
+    print(f"x[range(2),[0,2]]={x[range(2), [0, 2]]}")  # tensor([1, 6])
 
 
 def loop_print(ndarray):
@@ -123,7 +120,7 @@ def two_one_six():
 if __name__ == '__main__':
     # two_one_one()
     # two_one_two()
-    two_one_three()
-    # two_one_four()
+    # two_one_three()
+    two_one_four()
     # two_one_five()
     # two_one_six()

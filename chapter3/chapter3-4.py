@@ -15,13 +15,29 @@ chapter 3-4 softmax 回归(softmax regression)
 """
 
 
-def sigmoid():
+def sigmoid_function():
     """
     S型函数（sigmoid function，或称乙状函数）是一种函数，因其函数图像形状像字母S得名。
     其形状曲线至少有2个焦点，也叫“二焦点曲线函数”。
     S型函数单调、有界、处处可微的实函数，它将模型的线性输出映射到 (0, 1) 的范围内，使其可以解释为概率。
     """
     pass
+
+
+def softmax_function():
+    """
+    softmax本质上就是将结果映射到[0,1]区间且总和为1,特别适合表示概率,也可以叫做归一化
+    softmax 函数定义 yˆi = e^i/∑ e^j, 其中 j=1,2,…,n
+    举例我们有个输出为 [3,1,2],如何计算 softmax(i)
+    S(1) = e^3/(e^3 + e^1 + e^2) ≈ 0.665
+    S(2) = e^1/(e^3 + e^1 + e^2) ≈ 0.090
+    S(3) = e^2/(e^3 + e^1 + e^2) ≈ 0.245
+    由结果可知 i=1
+    """
+    c = torch.tensor([3., 1., 2.])
+    r = nn.functional.softmax(c)
+    # softmax[3,1,2]=tensor([0.6652, 0.0900, 0.2447])
+    print(f"softmax[3,1,2]={r}")
 
 
 def classification():
@@ -81,4 +97,4 @@ def sgd():
 
 
 if __name__ == '__main__':
-    pass
+    softmax_function()
