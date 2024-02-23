@@ -397,15 +397,14 @@ def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater):
                         legend=['train loss', 'train acc', 'test acc'])
     train_metrics = None
     for epoch in range(num_epochs):
-        print(f'start train epoch: {epoch+1}')
+        print(f'train epoch: {epoch + 1}')
         train_metrics = train_epoch_ch3(net, train_iter, loss, updater)
         test_acc = evaluate_accuracy(net, test_iter)
         animator.add(epoch + 1, train_metrics + (test_acc,))
     train_loss, train_acc = train_metrics
-    # TODO 这里的断言会影响结果吗?
-    #assert train_loss < 0.5, train_loss
-    #assert train_acc <= 1 and train_acc > 0.7, train_acc
-    #assert test_acc <= 1 and test_acc > 0.7, test_acc
+    assert train_loss < 0.5, train_loss
+    assert train_acc <= 1 and train_acc > 0.7, train_acc
+    assert test_acc <= 1 and test_acc > 0.7, test_acc
 
 
 # Defined in file: ./chapter_linear-networks/softmax-regression-scratch.md
@@ -416,8 +415,8 @@ def predict_ch3(net, test_iter, n=6):
     trues = d2l.get_fashion_mnist_labels(y)
     preds = d2l.get_fashion_mnist_labels(d2l.argmax(net(X), axis=1))
     titles = [true + '\n' + pred for true, pred in zip(trues, preds)]
-    d2l.show_images(d2l.reshape(X[0:n], (n, 28, 28)), 1, n,
-                    titles=titles[0:n])
+    image = d2l.reshape(X[0:n], (n, 28, 28))
+    d2l.show_images(image, 1, n, titles=titles[0:n], scale=4)
 
 
 # Defined in file: ./chapter_multilayer-perceptrons/underfit-overfit.md

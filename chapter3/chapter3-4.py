@@ -21,7 +21,12 @@ def sigmoid_function():
     其形状曲线至少有2个焦点，也叫“二焦点曲线函数”。
     S型函数单调、有界、处处可微的实函数，它将模型的线性输出映射到 (0, 1) 的范围内，使其可以解释为概率。
     """
-    pass
+    x = torch.arange(-8.0, 8.0, 0.1, requires_grad=True)
+    y = torch.sigmoid(x)
+    d2l.plot(x.detach(), y.detach(), 'x', 'sigmoid(x)', figsize=(5, 2.5))
+    # 求导数
+    y.backward(torch.ones_like(x), retain_graph=True)
+    d2l.plot(x.detach(), x.grad, 'x', 'grad of sigmoid', figsize=(5, 2.5))
 
 
 def softmax_function():
@@ -97,4 +102,5 @@ def sgd():
 
 
 if __name__ == '__main__':
-    softmax_function()
+    # softmax_function()
+    sigmoid_function()
