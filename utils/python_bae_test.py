@@ -1,12 +1,13 @@
 """
 python 基础函数测试
 """
+import math
 
 
 def iter_next_test():
     """
     迭代器是一个可以记住遍历的位置的对象。
-    迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。
+    迭代器对象从集合的第一个元素开始访问,直到所有的元素被访问完结束。迭代器只能往前不会后退。
     """
     print("\n======== iter_next_test ========")
     a = [1, 2, 3]
@@ -26,6 +27,18 @@ def x_for_y_in_z_test():
     print(f'x*2:{[x * 2 for x in range(1, 11)]}')  # 对每个 x 执行 x*2 的操作,并封装为数组
 
 
+def math_gamma_test():
+    """
+    阶乘
+    对于正整数 n,伽玛函数的定义是 (n-1)!
+    """
+    print("\n======== math_gamma_test ========")
+    for i in range(10):
+        n = i + 1
+        print(f"math.gamma({n})={math.gamma(n)}")
+
+
 if __name__ == '__main__':
-    iter_next_test()
-    x_for_y_in_z_test()
+    # iter_next_test()
+    # x_for_y_in_z_test()
+    math_gamma_test()
