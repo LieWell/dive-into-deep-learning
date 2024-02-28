@@ -153,7 +153,7 @@ def synthetic_data(w, b, num_examples):
     """Generate y = Xw + b + noise."""
     # 生成标准正态分布矩阵,形状为 (num_examples, len(w))
     X = d2l.normal(0, 1, (num_examples, len(w)))
-    # X 是矩阵, w 是向量,这里 matmul 函数等价于 mv 函数
+    # X 是矩阵, w 是向量,这里 matmul 函数等价于 torch.mv 函数
     y = d2l.matmul(X, w) + b
     # 再添加噪声
     y += d2l.normal(0, 0.01, y.shape)
