@@ -18,13 +18,13 @@ def three_seven():
     batch_size = 256
     train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
     # 3.7.1 初始化模型参数
-    # PyTorch不会隐式地调整输入的形状。
-    # 因此,我们在线性层前定义了展平层(flatten),来调整网络输入的形状
+    # torch.nn.Flatten() 输入为一批数据,第一维为batch, 通常要把一个数据拉成一维, 而不是将一批数据拉为一维。
+    # 所以torch.nn.Flatten()默认从第二维开始平坦化。
     net = nn.Sequential(nn.Flatten(), nn.Linear(784, 10))
     net.apply(init_weights)
     # 3.7.2 重新审视 Softmax 实现
     # 交叉熵损失函数
-    # TODO 教程中设置了 reduction="None" 参数会导致训练失败,原因后续在搞
+    # TODO 教程中设置了 reduction="None" 参数会导致训练失败,原因待排查
     loss = nn.CrossEntropyLoss()
     # 3.7.3 优化算法
     # 小批量随机梯度下降算法

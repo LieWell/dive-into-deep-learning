@@ -12,8 +12,7 @@ chapter 3-5 图像分类数据集
 def three_five_one():
     """
     chapter 3.5.1 读取 Fashion‐MNIST 数据集
-    Fashion‐MNIST 由 10 个类别的图像组成,每个类别由训练数据集(train dataset)中的6000张图像和测试数据集(test dataset)中的1000张图像组成。
-    因此,训练集和测试集总共分别包含60000和10000张图像
+    测试情况可参考文件 utils/d2l_test.py/d2l_test_load_data_fashion_mnist
     """
     print("\n======== 3.5.1 ==========")
     # 通过 ToTensor 实例将图像数据从 PIL 类型变换成32位浮点数格式

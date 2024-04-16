@@ -20,7 +20,7 @@ def prepare_train_data(n_train=100, n_test=100):
     :param n_test: 测试数据集数据量
     """
     print(f"\n======== prepare_train_data ==========")
-    # 多项式的项数
+    # 多项式的项数,简单来说就是我们的模型最多可以有19个weight+1个bias
     # 这里是 20 项,实际有效的是 4 项,多余的项会对训练造成影响
     max_degree = 20
     # 多项式的系数,这里给了4项,再多的可以认为都是0
@@ -71,7 +71,7 @@ def start_to_train(train_features, test_features, train_labels, test_labels, num
     input_shape = train_features.shape[-1]
     print(f"input_shape.last_shape={input_shape}")
     # 使用内置的线性模型
-    # 不设置偏置,因为我们已经在多项式中实现了它(就是常量 5)
+    # 不设置偏置,因为我们已经在多项式中实现了它(第一项 w0 就是偏置,因为 x^0 总是等于1)
     net = nn.Sequential(nn.Linear(input_shape, 1, bias=False))
     # 设置批次大小并加载数据
     batch_size = min(10, train_labels.shape[0])
@@ -107,16 +107,19 @@ def four_four_four():
     n_train, n_test = (100, 100)
     true_w, features, poly_features, labels = prepare_train_data(n_train, n_test)
 
-    # 正常拟合
+    # 正常拟合(4个参数)
+    # 实际的情况式我们不知道这批数据需要多少个参数才能完美拟合,这是一个猜的过程
+    # 如果我们正好选取了 4 个参数，那么几乎可以完美拟合数据(因为数据式我们用4个参数的多项式生成的)
     # 学习到的参数 weight: [[4.9957824  1.1921009 -3.4157283  5.6153574]] 与预设值差距不大
     # start_to_train(poly_features[:n_train, :4], poly_features[n_train:, :4], labels[:n_train], labels[n_train:])
 
-    # 欠拟合
-    # 仅使用两个特征进行预测
+    # 欠拟合(2个参数)
+    # 很显然,多项式式4个参数生成的,现在我们尝试仅使用2个参数就进行表达,肯定不准确
     # 学习到的参数  weight: [[2.8127165 4.673477 ]] 与预设值有较大差距
     # start_to_train(poly_features[:n_train, :2], poly_features[n_train:, :2], labels[:n_train], labels[n_train:])
 
-    # 过拟合
+    # 过拟合(使用全部20个参数)
+    # 当我们使用过多的参数进行预测，里面的噪声也可能被当作参数，这种情况更容易受到噪声的影响,形成过拟合
     # 从多项式特征中选取所有维度,训练批次也改成了1500
     # 虽然训练损失可以有效地降低,但测试损失仍然较高
     start_to_train(poly_features[:n_train, :], poly_features[n_train:, :], labels[:n_train], labels[n_train:],

@@ -16,11 +16,12 @@ def prepare_data():
     f(0) = 0.05
     f(1) = 0.05 + (0.01 * 1) + ε
     f(2) = 0.05 + (0.01 * 1) + (0.01 * 2) + ε
-    标签同时被均值为0,标准差为0.01高斯噪声破坏。为了使过拟合的效果更加明显,我们可以将问题的维数增加到d = 200,并使用一个只包含20个样本的小训练集
+    标签同时被均值为0,标准差为0.01高斯噪声破坏。
+    为了使过拟合的效果更加明显,我们可以将问题的维数增加到d = 200,并使用一个只包含20个样本的小训练集
     """
     n_train, n_test, num_inputs, batch_size = 20, 100, 200, 5
     # 初始化参数
-    # 权重为 torch.Size([200, 1]) 的张量,偏置为 0.5 的标量
+    # 权重为 torch.Size([200, 1]) 的张量,初始值为0.01; 偏置为的标量,其初始值为 0.05
     true_w, true_b = torch.ones((num_inputs, 1)) * 0.01, 0.05
     print(f"true_w.len={len(true_w)};true_w.shape={true_w.shape};true_b={true_b}")
     # 根据 w 与 b 生成标准正态分布的数据,该数据增加了噪声
@@ -40,7 +41,8 @@ def init_params(num_inputs):
 
 def l2_penalty(w):
     """
-    定义 L2 范数惩罚 --- 实现这一惩罚最方便的方法是对所有项求平方后并将它们求和
+    定义 L2 范数惩罚
+    实现这一惩罚最方便的方法是对所有项求平方后并将它们求和
     """
     return torch.sum(w.pow(2)) / 2
 
@@ -56,7 +58,7 @@ def weight_decay_from_zero(lambd):
                             xlim=[5, num_epochs], legend=['train', 'test'])
     for epoch in range(num_epochs):
         for X, y in train_iter:
-            # 增加了 L2 范数惩罚项, lambd 参数为 0 时惩罚项会消失
+            # 增加了 L2 范数惩罚项, lambd 参数为 0 时惩罚项会消失,损失函数退化为 MSE
             # 广播机制使 l2_penalty(w) 成为一个长度为 batch_size 的向量
             l = loss(net(X), y) + lambd * l2_penalty(w)
             l.sum().backward()
@@ -73,6 +75,7 @@ def weight_decay_simple(wd):
     train_iter, test_iter, num_inputs, batch_size = prepare_data()
     w, b = init_params(num_inputs)
     # 定义线性模型
+    # nn.Linear 将输入展平成一维
     net = nn.Sequential(nn.Linear(num_inputs, 1))
     print(f"net.parameters={net.parameters}")
     print(f"net[0]={net[0]}")
@@ -85,7 +88,8 @@ def weight_decay_simple(wd):
     # 权重衰减由 wd 参数决定
     trainer = torch.optim.SGD([
         {"params": net[0].weight, 'weight_decay': wd},
-        {"params": net[0].bias}], lr=lr)
+        {"params": net[0].bias}
+    ], lr=lr)
     animator = d2l.Animator(xlabel='epochs', ylabel='loss', yscale='log',
                             xlim=[5, num_epochs], legend=['train', 'test'])
     for epoch in range(num_epochs):
@@ -102,16 +106,19 @@ def weight_decay_simple(wd):
 
 def four_five():
     """
-    chapter 4.5.1 高纬线性回归
+    chapter 4.5 权重衰减
     """
-    print(f"\n======== chapter 4.5.1 ==========")
+    print(f"\n======== chapter 4.5 ==========")
+
+    # 权重衰减 --- 从零实现
     # 用 lambd = 0禁用权重衰减后运行这个代码。
     # 注意,这里训练误差有了减少,但测试误差没有减少,这意味着出现了严重的过拟合
     # weight_decay_from_zero(lambd=0)
     # 使用权重衰减后运行这个代码
     # 注意,在这里训练误差增大,但测试误差减小。这正是我们期望从正则化中得到的效果。
     # weight_decay_from_zero(lambd=3)
-    # 简约实现
+
+    # 权重衰减 --- 简约实现
     # weight_decay_simple(0)
     weight_decay_simple(3)
 

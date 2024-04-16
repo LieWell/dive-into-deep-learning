@@ -10,3 +10,5 @@ Pillow>=9.5.0
 pandas>=2.1.4
 matplotlib
 scikit-learn
+requests
+IPython

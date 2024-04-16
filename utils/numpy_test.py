@@ -4,12 +4,12 @@ import torch
 
 def numpy_pow_test():
     print(f"\n========== numpy_pow_test ==========")
-    # shape=4x1
-    x = np.arange(4).reshape(-1, 1)
-    np.random.shuffle(x)
+    # shape=4x4
+    x = np.arange(16).reshape(4, 4)
     print(f"x={x};x.shape={x.shape}")
+    print(f"\nx.reshape(-1,16)={x.reshape(-1,16)}")
     # shape=1x2
-    power = np.arange(2).reshape(1, -1)
+    power = np.arange(4).reshape(1, -1)
     print(f"power={power};power.shape={power.shape}")
     # 广播机制 shape=4x2
     power_x = np.power(x, power)
